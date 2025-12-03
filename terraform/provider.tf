@@ -7,9 +7,8 @@ terraform {
   }
 
   backend "gcs" {
-    bucket      = "tf-bucket-state"
-    prefix      = "terraform/state"
-    credentials = "account_key.json"
+    bucket = "tf-bucket-state"
+    prefix = "terraform/state"
   }
 }
 
