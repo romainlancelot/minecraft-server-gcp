@@ -75,6 +75,6 @@ variable "minecraft_enable_rcon" {
 
 variable "use_spot_instance" {
   description = "Use Spot VM (cheaper but can be stopped by GCP)"
-  default     = true
+  default     = false
   type        = bool
 }
