@@ -14,9 +14,9 @@ variable "zone" {
 }
 
 variable "minecraft_disk_size" {
-    description = "Persistent disk size in GB"
-    default     = 20
-    type        = number
+  description = "Persistent disk size in GB"
+  default     = 20
+  type        = number
 }
 
 variable "machine_type" {
