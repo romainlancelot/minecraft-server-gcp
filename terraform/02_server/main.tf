@@ -15,6 +15,12 @@ resource "google_compute_instance" "minecraft_server" {
     }
   }
 
+  scheduling {
+    preemptible        = var.use_spot_instance
+    automatic_restart  = var.use_spot_instance ? false : true
+    provisioning_model = var.use_spot_instance ? "SPOT" : "STANDARD"
+  }
+
   attached_disk {
     source      = data.google_compute_disk.minecraft_data.id
     device_name = "minecraft-data"
