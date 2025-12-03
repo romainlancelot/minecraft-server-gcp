@@ -23,5 +23,11 @@ docker run -d \
   -p 25565:25565 \
   -v $MNT_DIR:/data \
   -e EULA=TRUE \
-  -e MEMORY=3G \
-  itzg/minecraft-server
+  -e VERSION=${minecraft_version} \
+  -e MEMORY=${minecraft_memory} \
+  -e TYPE=${minecraft_type} \
+  -e DIFFICULTY=${minecraft_difficulty} \
+  -e MOTD="${minecraft_motd}" \
+  -e MAX_PLAYERS=${minecraft_max_players} \
+  -e ENABLE_RCON=${minecraft_enable_rcon} \
+  ${minecraft_image}

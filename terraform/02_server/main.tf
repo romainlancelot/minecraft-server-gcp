@@ -27,7 +27,16 @@ resource "google_compute_instance" "minecraft_server" {
     }
   }
 
-  metadata_startup_script = file("${path.module}/startup.sh")
+  metadata_startup_script = templatefile("${path.module}/startup.sh", {
+    minecraft_image       = var.minecraft_image
+    minecraft_version     = var.minecraft_version
+    minecraft_memory      = var.minecraft_memory
+    minecraft_type        = var.minecraft_type
+    minecraft_difficulty  = var.minecraft_difficulty
+    minecraft_motd        = var.minecraft_motd
+    minecraft_max_players = var.minecraft_max_players
+    minecraft_enable_rcon = var.minecraft_enable_rcon
+  })
 
   service_account {
     scopes = ["cloud-platform"]
