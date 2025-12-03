@@ -78,3 +78,9 @@ variable "use_spot_instance" {
   default     = false
   type        = bool
 }
+
+variable "enable_static_ip" {
+  description = "Enable static IP address creation and usage"
+  default     = false
+  type        = bool
+}

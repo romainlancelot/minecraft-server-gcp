@@ -86,6 +86,7 @@ Before running Terraform, you must configure where the state file is stored.
 | `minecraft_max_players` | Maximum number of players allowed.              | `10`                              |
 | `minecraft_enable_rcon` | Enable RCON for remote server management.       | `true`                            |
 | `use_spot_instance`     | Use Spot VM (cheaper but can be stopped by GCP) | `false`                           |
+| `enable_static_ip`      | Enable static IP address creation and usage     | `false`                           |
 
 ### 4. Deploy the Persistent Storage
 

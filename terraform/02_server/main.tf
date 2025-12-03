@@ -3,6 +3,12 @@ data "google_compute_disk" "minecraft_data" {
   zone = var.zone
 }
 
+data "google_compute_address" "static_ip" {
+  count  = var.enable_static_ip ? 1 : 0
+  name   = "minecraft-static-ip"
+  region = var.region
+}
+
 resource "google_compute_instance" "minecraft_server" {
   name         = "minecraft-server"
   machine_type = var.machine_type
@@ -29,7 +35,7 @@ resource "google_compute_instance" "minecraft_server" {
   network_interface {
     network = google_compute_network.vpc_network.name
     access_config {
-      # Ephemeral public IP
+      nat_ip = var.enable_static_ip ? data.google_compute_address.static_ip[0].address : null
     }
   }
 

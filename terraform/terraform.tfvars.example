@@ -10,3 +10,4 @@ minecraft_motd        = "Minecraft Server on GCP"
 minecraft_max_players = 10
 minecraft_enable_rcon = true
 use_spot_instance     = false
+enable_static_ip      = false
