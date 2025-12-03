@@ -1,0 +1,11 @@
+project_id            = "your-gcp-project-id"
+machine_type          = "e2-medium"
+minecraft_disk_size   = 20
+minecraft_image       = "itzg/minecraft-server:java25"
+minecraft_version     = "LATEST"
+minecraft_memory      = "3G"
+minecraft_type        = "VANILLA"
+minecraft_difficulty  = "normal"
+minecraft_motd        = "Minecraft Server on GCP"
+minecraft_max_players = 10
+minecraft_enable_rcon = true
