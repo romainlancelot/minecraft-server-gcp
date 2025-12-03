@@ -59,14 +59,15 @@ Before running Terraform, you must configure where the state file is stored.
 
 ### 3. Configure Variables
 
-1. Rename the example variable files:
+1. Copy the example variable files and create symbolic links:
 
    ```bash
-   mv terraform/01_persistent/terraform.tfvars.example terraform/01_persistent/terraform.tfvars
-   mv terraform/02_server/terraform.tfvars.example terraform/02_server/terraform.tfvars
+   mv terraform/terraform.tfvars.example terraform/terraform.tfvars
+   ln -s ../terraform.tfvars terraform/01_persistent/terraform.tfvars
+   ln -s ../terraform.tfvars terraform/02_server/terraform.tfvars
    ```
 
-2. Edit `terraform.tfvars` in both directories with your specific values (Project ID, Region, etc.).
+2. Edit `terraform.tfvars` in the root `terraform` directory with your specific values (Project ID, Region, etc.).
 
 **Key Variables:**
 
