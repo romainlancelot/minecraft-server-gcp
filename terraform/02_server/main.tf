@@ -50,6 +50,8 @@ resource "google_compute_instance" "minecraft_server" {
     minecraft_motd        = var.minecraft_motd
     minecraft_max_players = var.minecraft_max_players
     minecraft_enable_rcon = var.minecraft_enable_rcon
+    minecraft_ops         = var.minecraft_ops
+    minecraft_icon        = var.minecraft_icon
   })
 
   service_account {

@@ -15,3 +15,5 @@ enable_scheduler      = false
 scheduler_start_time  = "0 8 * * *"
 scheduler_stop_time   = "0 23 * * *"
 scheduler_timezone    = "Europe/Paris"
+minecraft_ops         = "player1,player2"
+minecraft_icon        = "https://example.com/path/to/your/icon.png"

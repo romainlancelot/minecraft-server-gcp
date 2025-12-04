@@ -108,3 +108,15 @@ variable "scheduler_timezone" {
   default     = "Europe/Paris"
   type        = string
 }
+
+variable "minecraft_ops" {
+  description = "List of players to grant Operator (OP) status (comma-separated usernames)"
+  default     = ""
+  type        = string
+}
+
+variable "minecraft_icon" {
+  description = "URL to the server icon image (PNG, JPG, etc.)"
+  default     = "https://www.gstatic.com/cgc/super_cloud.png"
+  type        = string
+}

@@ -30,4 +30,6 @@ docker run -d \
   -e MOTD="${minecraft_motd}" \
   -e MAX_PLAYERS=${minecraft_max_players} \
   -e ENABLE_RCON=${minecraft_enable_rcon} \
+  -e OPS="${minecraft_ops}" \
+  -e ICON="${minecraft_icon}" \
   ${minecraft_image}
