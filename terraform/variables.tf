@@ -49,6 +49,18 @@ variable "minecraft_type" {
   type        = string
 }
 
+variable "modrinth_projects" {
+  description = "List of Modrinth projects to install (slugs or IDs, comma-separated)"
+  default     = ""
+  type        = string
+}
+
+variable "voice_chat_port" {
+  description = "UDP port for Simple Voice Chat"
+  default     = 24454
+  type        = number
+}
+
 variable "minecraft_difficulty" {
   description = "Game difficulty"
   default     = "normal"

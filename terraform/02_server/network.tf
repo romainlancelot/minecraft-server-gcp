@@ -28,3 +28,16 @@ resource "google_compute_firewall" "allow-minecraft" {
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["minecraft-server"]
 }
+
+resource "google_compute_firewall" "allow-voice-chat" {
+  name    = "allow-voice-chat"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "udp"
+    ports    = [var.voice_chat_port]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["minecraft-server"]
+}

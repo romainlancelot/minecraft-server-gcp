@@ -21,6 +21,7 @@ docker run -d \
   --name mc \
   --restart always \
   -p 25565:25565 \
+  -p ${voice_chat_port}:${voice_chat_port}/udp \
   -v $MNT_DIR:/data \
   -e EULA=TRUE \
   -e VERSION=${minecraft_version} \
@@ -32,4 +33,5 @@ docker run -d \
   -e ENABLE_RCON=${minecraft_enable_rcon} \
   -e OPS="${minecraft_ops}" \
   -e ICON="${minecraft_icon}" \
+  -e MODRINTH_PROJECTS="${modrinth_projects}" \
   ${minecraft_image}

@@ -52,6 +52,8 @@ resource "google_compute_instance" "minecraft_server" {
     minecraft_enable_rcon = var.minecraft_enable_rcon
     minecraft_ops         = var.minecraft_ops
     minecraft_icon        = var.minecraft_icon
+    modrinth_projects     = var.modrinth_projects
+    voice_chat_port       = var.voice_chat_port
   })
 
   service_account {

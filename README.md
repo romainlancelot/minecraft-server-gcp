@@ -85,6 +85,8 @@ Before running Terraform, you must configure where the state file is stored.
 | `minecraft_motd`        | Message of the Day.                             | `Minecraft Server on GCP`                     |
 | `minecraft_icon`        | URL to server icon.                             | `https://www.gstatic.com/cgc/super_cloud.png` |
 | `minecraft_ops`         | List of OP players (comma-separated).           | `""`                                          |
+| `modrinth_projects`     | List of Modrinth projects (slugs/IDs) to install| `""`                                          |
+| `voice_chat_port`       | UDP port for Simple Voice Chat plugin           | `24454`                                       |
 | `minecraft_max_players` | Maximum number of players allowed.              | `10`                                          |
 | `minecraft_enable_rcon` | Enable RCON for remote server management.       | `true`                                        |
 | `use_spot_instance`     | Use Spot VM (cheaper but can be stopped by GCP) | `false`                                       |
