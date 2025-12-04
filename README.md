@@ -82,9 +82,9 @@ Before running Terraform, you must configure where the state file is stored.
 | `minecraft_type`        | Server type (`VANILLA`, `PAPER`, `FORGE`...).   | `VANILLA`                                     |
 | `minecraft_memory`      | RAM allocated to Java (e.g., `2G`, `4G`).       | `2G`                                          |
 | `minecraft_difficulty`  | Game difficulty (`peaceful`, `easy`, etc.).     | `normal`                                      |
-| `minecraft_motd`        | Message of the Day.                             | "Minecraft Server on GCP"                     |
-| `minecraft_icon`        | URL to server icon.                             | "https://www.gstatic.com/cgc/super_cloud.png" |
-| `minecraft_ops`         | List of OP players (comma-separated).           | ""                                            |
+| `minecraft_motd`        | Message of the Day.                             | `Minecraft Server on GCP`                     |
+| `minecraft_icon`        | URL to server icon.                             | `https://www.gstatic.com/cgc/super_cloud.png` |
+| `minecraft_ops`         | List of OP players (comma-separated).           | `""`                                          |
 | `minecraft_max_players` | Maximum number of players allowed.              | `10`                                          |
 | `minecraft_enable_rcon` | Enable RCON for remote server management.       | `true`                                        |
 | `use_spot_instance`     | Use Spot VM (cheaper but can be stopped by GCP) | `false`                                       |
