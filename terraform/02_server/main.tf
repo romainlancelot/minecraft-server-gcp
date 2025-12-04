@@ -27,6 +27,8 @@ resource "google_compute_instance" "minecraft_server" {
     provisioning_model = var.use_spot_instance ? "SPOT" : "STANDARD"
   }
 
+  resource_policies = var.enable_scheduler ? [google_compute_resource_policy.start_stop[0].id] : []
+
   attached_disk {
     source      = data.google_compute_disk.minecraft_data.id
     device_name = "minecraft-data"
