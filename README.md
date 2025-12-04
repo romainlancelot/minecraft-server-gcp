@@ -87,6 +87,10 @@ Before running Terraform, you must configure where the state file is stored.
 | `minecraft_enable_rcon` | Enable RCON for remote server management.       | `true`                            |
 | `use_spot_instance`     | Use Spot VM (cheaper but can be stopped by GCP) | `false`                           |
 | `enable_static_ip`      | Enable static IP address creation and usage     | `true`                            |
+| `enable_scheduler`      | Enable automatic start/stop scheduler           | `false`                           |
+| `scheduler_start_time`  | Cron schedule for starting the server           | `0 8 * * *` (8 AM)                |
+| `scheduler_stop_time`   | Cron schedule for stopping the server           | `0 23 * * *` (11 PM)              |
+| `scheduler_timezone`    | Timezone for the scheduler                      | `Europe/Paris`                    |
 
 ### 4. Deploy the Persistent Storage
 

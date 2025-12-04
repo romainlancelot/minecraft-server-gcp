@@ -11,3 +11,7 @@ minecraft_max_players = 10
 minecraft_enable_rcon = true
 use_spot_instance     = false
 enable_static_ip      = false
+enable_scheduler      = false
+scheduler_start_time  = "0 8 * * *"
+scheduler_stop_time   = "0 23 * * *"
+scheduler_timezone    = "Europe/Paris"

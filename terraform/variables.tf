@@ -84,3 +84,27 @@ variable "enable_static_ip" {
   default     = true
   type        = bool
 }
+
+variable "enable_scheduler" {
+  description = "Enable automatic start/stop scheduler"
+  default     = false
+  type        = bool
+}
+
+variable "scheduler_start_time" {
+  description = "Cron schedule for starting the server (e.g., '0 8 * * *' for 8 AM)"
+  default     = "0 8 * * *"
+  type        = string
+}
+
+variable "scheduler_stop_time" {
+  description = "Cron schedule for stopping the server (e.g., '0 23 * * *' for 10 PM)"
+  default     = "0 23 * * *"
+  type        = string
+}
+
+variable "scheduler_timezone" {
+  description = "Timezone for the scheduler"
+  default     = "Europe/Paris"
+  type        = string
+}
