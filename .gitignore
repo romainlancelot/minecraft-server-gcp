@@ -38,3 +38,6 @@ terraform.rc
 
 # Ignore Google Cloud account key files
 *account_key.json
+
+# Ignore Minecraft backup files
+minecraft-backup*

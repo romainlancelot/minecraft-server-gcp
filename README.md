@@ -23,6 +23,7 @@ The infrastructure is designed to be cost-effective and flexible:
   - [Save Money (Stop the Server)](#save-money-stop-the-server)
   - [Restart / Update](#restart--update)
   - [Delete Everything (Cleanup)](#delete-everything-cleanup)
+- [Backup](#backup)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Author](#author)
@@ -71,30 +72,30 @@ Before running Terraform, you must configure where the state file is stored.
 
 **Key Variables:**
 
-| Variable                | Description                                     | Default                                       |
-| :---------------------- | :---------------------------------------------- | :-------------------------------------------- |
-| `project_id`            | **Required.** Your GCP Project ID.              | -                                             |
-| `region` / `zone`       | GCP Region and Zone.                            | `europe-west9` / `europe-west9-b`             |
-| `machine_type`          | VM size (e.g., `e2-medium`, `e2-standard-2`).   | `e2-medium`                                   |
-| `minecraft_disk_size`   | Size of the Persistent Disk (in GB).            | `20`                                          |
-| `minecraft_image`       | Docker image to use for the server.             | `itzg/minecraft-server:java25`                |
-| `minecraft_version`     | Minecraft version (e.g., `1.20.4`, `LATEST`).   | `LATEST`                                      |
-| `minecraft_type`        | Server type (`VANILLA`, `PAPER`, `FORGE`...).   | `VANILLA`                                     |
-| `minecraft_memory`      | RAM allocated to Java (e.g., `2G`, `4G`).       | `2G`                                          |
-| `minecraft_difficulty`  | Game difficulty (`peaceful`, `easy`, etc.).     | `normal`                                      |
-| `minecraft_motd`        | Message of the Day.                             | `Minecraft Server on GCP`                     |
-| `minecraft_icon`        | URL to server icon.                             | `https://www.gstatic.com/cgc/super_cloud.png` |
-| `minecraft_ops`         | List of OP players (comma-separated).           | `""`                                          |
-| `modrinth_projects`     | List of Modrinth projects (slugs/IDs) to install| `""`                                          |
-| `voice_chat_port`       | UDP port for Simple Voice Chat plugin           | `24454`                                       |
-| `minecraft_max_players` | Maximum number of players allowed.              | `10`                                          |
-| `minecraft_enable_rcon` | Enable RCON for remote server management.       | `true`                                        |
-| `use_spot_instance`     | Use Spot VM (cheaper but can be stopped by GCP) | `false`                                       |
-| `enable_static_ip`      | Enable static IP address creation and usage     | `true`                                        |
-| `enable_scheduler`      | Enable automatic start/stop scheduler           | `false`                                       |
-| `scheduler_start_time`  | Cron schedule for starting the server           | `0 8 * * *` (8 AM)                            |
-| `scheduler_stop_time`   | Cron schedule for stopping the server           | `0 23 * * *` (11 PM)                          |
-| `scheduler_timezone`    | Timezone for the scheduler                      | `Europe/Paris`                                |
+| Variable                | Description                                      | Default                                       |
+| :---------------------- | :----------------------------------------------- | :-------------------------------------------- |
+| `project_id`            | **Required.** Your GCP Project ID.               | -                                             |
+| `region` / `zone`       | GCP Region and Zone.                             | `europe-west9` / `europe-west9-b`             |
+| `machine_type`          | VM size (e.g., `e2-medium`, `e2-standard-2`).    | `e2-medium`                                   |
+| `minecraft_disk_size`   | Size of the Persistent Disk (in GB).             | `20`                                          |
+| `minecraft_image`       | Docker image to use for the server.              | `itzg/minecraft-server:java25`                |
+| `minecraft_version`     | Minecraft version (e.g., `1.20.4`, `LATEST`).    | `LATEST`                                      |
+| `minecraft_type`        | Server type (`VANILLA`, `PAPER`, `FORGE`...).    | `VANILLA`                                     |
+| `minecraft_memory`      | RAM allocated to Java (e.g., `2G`, `4G`).        | `2G`                                          |
+| `minecraft_difficulty`  | Game difficulty (`peaceful`, `easy`, etc.).      | `normal`                                      |
+| `minecraft_motd`        | Message of the Day.                              | `Minecraft Server on GCP`                     |
+| `minecraft_icon`        | URL to server icon.                              | `https://www.gstatic.com/cgc/super_cloud.png` |
+| `minecraft_ops`         | List of OP players (comma-separated).            | `""`                                          |
+| `modrinth_projects`     | List of Modrinth projects (slugs/IDs) to install | `""`                                          |
+| `voice_chat_port`       | UDP port for Simple Voice Chat plugin            | `24454`                                       |
+| `minecraft_max_players` | Maximum number of players allowed.               | `10`                                          |
+| `minecraft_enable_rcon` | Enable RCON for remote server management.        | `true`                                        |
+| `use_spot_instance`     | Use Spot VM (cheaper but can be stopped by GCP)  | `false`                                       |
+| `enable_static_ip`      | Enable static IP address creation and usage      | `true`                                        |
+| `enable_scheduler`      | Enable automatic start/stop scheduler            | `false`                                       |
+| `scheduler_start_time`  | Cron schedule for starting the server            | `0 8 * * *` (8 AM)                            |
+| `scheduler_stop_time`   | Cron schedule for stopping the server            | `0 23 * * *` (11 PM)                          |
+| `scheduler_timezone`    | Timezone for the scheduler                       | `Europe/Paris`                                |
 
 ### 4. Deploy the Persistent Storage
 
@@ -163,6 +164,17 @@ If you want to delete everything permanently (including your world data):
    cd ../01_persistent
    terraform destroy
    ```
+
+## Backup
+
+You can back up your Minecraft world data by running the provided backup script. This script creates a compressed archive of your world data and saves it locally.
+
+```sh
+cd scripts
+./backup_world.sh
+```
+
+> To use the script, ensure you have `gcloud` installed and authenticated, and that you have the necessary permissions to access the Persistent Disk.
 
 ## Troubleshooting
 
