@@ -13,12 +13,13 @@ The infrastructure is designed to be cost-effective and flexible:
 - [Architecture](#architecture)
 - [Prerequisites](#prerequisites)
 - [Setup Guide](#setup-guide)
-  - [1. Authentication](#1-authentication)
-  - [2. Configure Backend](#2-configure-backend)
-  - [3. Configure Variables](#3-configure-variables)
-  - [4. Deploy the Persistent Storage](#4-deploy-the-persistent-storage)
-  - [5. Deploy the Server](#5-deploy-the-server)
-  - [6. Connect](#6-connect)
+  - [1. Enable GCP APIs](#1-enable-gcp-apis)
+  - [2. Authentication](#2-authentication)
+  - [3. Configure Backend](#3-configure-backend)
+  - [4. Configure Variables](#4-configure-variables)
+  - [5. Deploy the Persistent Storage](#5-deploy-the-persistent-storage)
+  - [6. Deploy the Server](#6-deploy-the-server)
+  - [7. Connect](#7-connect)
 - [Managing the Server](#managing-the-server)
   - [Save Money (Stop the Server)](#save-money-stop-the-server)
   - [Restart / Update](#restart--update)
@@ -43,7 +44,23 @@ The project is split into two Terraform states:
 
 ## Setup Guide
 
-### 1. Authentication
+### 1. Enable GCP APIs
+
+Before running Terraform on a fresh GCP project, ensure the required APIs (`compute.googleapis.com`, `storage.googleapis.com`, `iam.googleapis.com`, etc.) are enabled:
+
+* **Quick script (Recommended):**
+  ```bash
+  cd scripts
+  ./enable_apis.sh
+  ```
+* **Or with Terraform `00_apis`:**
+  ```bash
+  cd terraform/00_apis
+  terraform init
+  terraform apply
+  ```
+
+### 2. Authentication
 
 Authenticate Terraform with your GCP account:
 
@@ -51,19 +68,20 @@ Authenticate Terraform with your GCP account:
 gcloud auth application-default login
 ```
 
-### 2. Configure Backend
+### 3. Configure Backend
 
 Before running Terraform, you must configure where the state file is stored.
 
-1. Open `terraform/01_persistent/provider.tf` and `terraform/02_server/provider.tf`.
+1. Open `terraform/00_apis/provider.tf`, `terraform/01_persistent/provider.tf`, and `terraform/02_server/provider.tf`.
 2. Change the `bucket` value to a **unique name** (e.g., `yourname-minecraft-tfstate`). Bucket names must be globally unique across all of Google Cloud.
 
-### 3. Configure Variables
+### 4. Configure Variables
 
 1. Copy the example variable files and create symbolic links:
 
    ```bash
    mv terraform/terraform.tfvars.example terraform/terraform.tfvars
+   ln -s ../terraform.tfvars terraform/00_apis/terraform.tfvars
    ln -s ../terraform.tfvars terraform/01_persistent/terraform.tfvars
    ln -s ../terraform.tfvars terraform/02_server/terraform.tfvars
    ```
@@ -97,7 +115,7 @@ Before running Terraform, you must configure where the state file is stored.
 | `scheduler_stop_time`   | Cron schedule for stopping the server            | `0 23 * * *` (11 PM)                          |
 | `scheduler_timezone`    | Timezone for the scheduler                       | `Europe/Paris`                                |
 
-### 4. Deploy the Persistent Storage
+### 5. Deploy the Persistent Storage
 
 First, create the disk that will hold your data.
 
@@ -109,7 +127,7 @@ terraform apply
 
 > Review the plan and type `yes` to confirm.
 
-### 5. Deploy the Server
+### 6. Deploy the Server
 
 Once the disk is created, deploy the server VM.
 
@@ -121,7 +139,7 @@ terraform apply
 
 > Review the plan and type `yes` to confirm.
 
-### 6. Connect
+### 7. Connect
 
 After the deployment of `02_server` is complete, Terraform will output the public IP address of your server.
 
