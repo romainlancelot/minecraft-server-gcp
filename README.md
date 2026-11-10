@@ -24,7 +24,9 @@ The infrastructure is designed to be cost-effective and flexible:
   - [Save Money (Stop the Server)](#save-money-stop-the-server)
   - [Restart / Update](#restart--update)
   - [Delete Everything (Cleanup)](#delete-everything-cleanup)
-- [Backup](#backup)
+- [Backup and Restore](#backup-and-restore)
+  - [Backup](#backup)
+  - [Restore](#restore)
 - [Troubleshooting](#troubleshooting)
 - [License](#license)
 - [Author](#author)
@@ -48,12 +50,12 @@ The project is split into two Terraform states:
 
 Before running Terraform on a fresh GCP project, ensure the required APIs (`compute.googleapis.com`, `storage.googleapis.com`, `iam.googleapis.com`, etc.) are enabled:
 
-* **Quick script (Recommended):**
+- **Quick script (Recommended):**
   ```bash
   cd scripts
   ./enable_apis.sh
   ```
-* **Or with Terraform `00_apis`:**
+- **Or with Terraform `00_apis`:**
   ```bash
   cd terraform/00_apis
   terraform init
@@ -183,7 +185,9 @@ If you want to delete everything permanently (including your world data):
    terraform destroy
    ```
 
-## Backup
+## Backup and Restore
+
+### Backup
 
 You can back up your Minecraft world data by running the provided backup script. This script creates a compressed archive of your world data and saves it locally.
 
@@ -192,7 +196,18 @@ cd scripts
 ./backup_world.sh
 ```
 
-> To use the script, ensure you have `gcloud` installed and authenticated, and that you have the necessary permissions to access the Persistent Disk.
+### Restore
+
+To restore a previously backed up world onto an existing or newly deployed server:
+
+```sh
+cd scripts
+./restore_world.sh [path_to_backup.tar.gz]
+```
+
+If no backup path is provided, the script will automatically list existing backups and prompt you to choose one.
+
+> To use the scripts, ensure you have `gcloud` installed and authenticated, and that your `gcloud` project and zone match your deployment.
 
 ## Troubleshooting
 
