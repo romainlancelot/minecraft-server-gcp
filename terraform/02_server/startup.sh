@@ -31,6 +31,7 @@ docker run -d \
   -e MOTD="${minecraft_motd}" \
   -e MAX_PLAYERS=${minecraft_max_players} \
   -e ENABLE_RCON=${minecraft_enable_rcon} \
+  -e ENFORCE_SECURE_PROFILE=${enforce_secure_profile} \
   -e OPS="${minecraft_ops}" \
   -e ICON="${minecraft_icon}" \
   -e MODRINTH_PROJECTS="${modrinth_projects}" \

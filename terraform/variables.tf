@@ -85,6 +85,12 @@ variable "minecraft_enable_rcon" {
   type        = bool
 }
 
+variable "enforce_secure_profile" {
+  description = "Require players to have a Mojang-signed public key to chat (set to false to allow unverified chat messages)"
+  default     = false
+  type        = bool
+}
+
 variable "use_spot_instance" {
   description = "Use Spot VM (cheaper but can be stopped by GCP)"
   default     = false
