@@ -41,3 +41,22 @@ resource "google_compute_firewall" "allow-voice-chat" {
   source_ranges = ["0.0.0.0/0"]
   target_tags   = ["minecraft-server"]
 }
+
+resource "google_compute_firewall" "allow-bedrock" {
+  count   = var.enable_bedrock ? 1 : 0
+  name    = "allow-bedrock"
+  network = google_compute_network.vpc_network.name
+
+  allow {
+    protocol = "tcp"
+    ports    = [var.bedrock_port]
+  }
+
+  allow {
+    protocol = "udp"
+    ports    = [var.bedrock_port]
+  }
+
+  source_ranges = ["0.0.0.0/0"]
+  target_tags   = ["minecraft-server"]
+}

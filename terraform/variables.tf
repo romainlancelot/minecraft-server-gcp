@@ -61,6 +61,18 @@ variable "voice_chat_port" {
   type        = number
 }
 
+variable "enable_bedrock" {
+  description = "Enable Bedrock Edition (mobile/console) crossplay via Geyser & Floodgate (requires PAPER/SPIGOT)"
+  default     = false
+  type        = bool
+}
+
+variable "bedrock_port" {
+  description = "TCP/UDP port for Minecraft Bedrock Edition connections (Geyser)"
+  default     = 19132
+  type        = number
+}
+
 variable "minecraft_difficulty" {
   description = "Game difficulty"
   default     = "normal"
@@ -86,7 +98,7 @@ variable "minecraft_enable_rcon" {
 }
 
 variable "enforce_secure_profile" {
-  description = "Require players to have a Mojang-signed public key to chat (set to false to allow unverified chat messages)"
+  description = "Require players to have a Mojang-signed public key to chat (automatically forced to false when enable_bedrock is true)"
   default     = false
   type        = bool
 }

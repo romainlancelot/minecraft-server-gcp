@@ -50,11 +50,13 @@ resource "google_compute_instance" "minecraft_server" {
     minecraft_motd         = var.minecraft_motd
     minecraft_max_players  = var.minecraft_max_players
     minecraft_enable_rcon  = var.minecraft_enable_rcon
-    enforce_secure_profile = var.enforce_secure_profile
+    enforce_secure_profile = var.enable_bedrock ? false : var.enforce_secure_profile
     minecraft_ops          = var.minecraft_ops
     minecraft_icon         = var.minecraft_icon
     modrinth_projects      = var.modrinth_projects
     voice_chat_port        = var.voice_chat_port
+    enable_bedrock         = var.enable_bedrock
+    bedrock_port           = var.bedrock_port
   })
 
   service_account {

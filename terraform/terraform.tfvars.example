@@ -18,3 +18,5 @@ scheduler_stop_time    = "0 23 * * *"
 scheduler_timezone     = "Europe/Paris"
 minecraft_ops          = "player1,player2"
 minecraft_icon         = "https://example.com/path/to/your/icon.png"
+enable_bedrock         = false
+bedrock_port           = 19132

@@ -16,12 +16,27 @@ fi
 mount -o discard,defaults /dev/disk/by-id/$DEVICE_ID $MNT_DIR
 chmod a+w $MNT_DIR
 
+# Install or remove Geyser & Floodgate plugins for Bedrock support
+mkdir -p "$MNT_DIR/plugins"
+rm -f "$MNT_DIR/plugins/"*Geyser*.jar "$MNT_DIR/plugins/"*geyser*.jar "$MNT_DIR/plugins/"*floodgate*.jar "$MNT_DIR/plugins/"*Floodgate*.jar
+if [ "${enable_bedrock}" = "true" ]; then
+  curl -fsSL -o "$MNT_DIR/plugins/Geyser-Spigot.jar" "https://download.geysermc.org/v2/projects/geyser/versions/latest/builds/latest/downloads/spigot"
+  curl -fsSL -o "$MNT_DIR/plugins/floodgate-spigot.jar" "https://download.geysermc.org/v2/projects/floodgate/versions/latest/builds/latest/downloads/spigot"
+  if [ -f "$MNT_DIR/plugins/Geyser-Spigot/config.yml" ]; then
+    sed -i 's/auth-type: online/auth-type: floodgate/g' "$MNT_DIR/plugins/Geyser-Spigot/config.yml"
+  fi
+fi
+
 # Run Minecraft Server
 docker run -d \
   --name mc \
   --restart always \
   -p 25565:25565 \
   -p ${voice_chat_port}:${voice_chat_port}/udp \
+%{ if enable_bedrock ~}
+  -p ${bedrock_port}:${bedrock_port}/tcp \
+  -p ${bedrock_port}:${bedrock_port}/udp \
+%{ endif ~}
   -v $MNT_DIR:/data \
   -e EULA=TRUE \
   -e VERSION=${minecraft_version} \
@@ -36,3 +51,17 @@ docker run -d \
   -e ICON="${minecraft_icon}" \
   -e MODRINTH_PROJECTS="${modrinth_projects}" \
   ${minecraft_image}
+
+# On first boot, wait for Geyser to generate config.yml and set auth-type to floodgate
+if [ "${enable_bedrock}" = "true" ]; then
+  for i in $(seq 1 30); do
+    if [ -f "$MNT_DIR/plugins/Geyser-Spigot/config.yml" ]; then
+      if grep -q "auth-type: online" "$MNT_DIR/plugins/Geyser-Spigot/config.yml"; then
+        sed -i 's/auth-type: online/auth-type: floodgate/g' "$MNT_DIR/plugins/Geyser-Spigot/config.yml"
+        docker restart mc
+      fi
+      break
+    fi
+    sleep 2
+  done
+fi
